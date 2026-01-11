@@ -13,25 +13,19 @@ sudo yum update -y
 # Install Python 3.9 and pip
 sudo yum install -y python3 python3-pip git
 
-# Install PostgreSQL 13 repo
-sudo yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+# Install PostgreSQL 15 (Amazon Linux 2023 native)
+sudo dnf install -y postgresql15 postgresql15-server postgresql15-devel
 
-# Disable default PostgreSQL module
-sudo yum -qy module disable postgresql
-
-# Install PostgreSQL 13
-sudo yum install -y postgresql13-server postgresql13-devel
-
-# Initialize DB
-sudo /usr/pgsql-13/bin/postgresql-13-setup initdb
+# Initialize database
+sudo /usr/bin/postgresql-15-setup initdb
 
 # Configure PostgreSQL
-sudo sed -i "s/#listen_addresses = 'localhost'/listen_addresses = 'localhost'/" /var/lib/pgsql/13/data/postgresql.conf
-sudo sed -i "s/peer/md5/g" /var/lib/pgsql/13/data/pg_hba.conf
+sudo sed -i "s/#listen_addresses = 'localhost'/listen_addresses = 'localhost'/" /var/lib/pgsql/data/postgresql.conf
+sudo sed -i "s/peer/md5/g" /var/lib/pgsql/data/pg_hba.conf
 
-# Start PostgreSQL
-sudo systemctl start postgresql-13
-sudo systemctl enable postgresql-13
+# Start and enable PostgreSQL
+sudo systemctl start postgresql
+sudo systemctl enable postgresql
 
 # Create database user
 sudo -u postgres psql -c "CREATE USER procurement_user WITH PASSWORD 'procurement_pass';"
