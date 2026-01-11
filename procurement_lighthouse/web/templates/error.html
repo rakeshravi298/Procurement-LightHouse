@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Error - Procurement Lighthouse PoC{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>{% if error_code %}Error {{ error_code }}{% else %}System Error{% endif %}</h2>
+    
+    <div class="error">
+        <strong>Error:</strong> {{ error }}
+    </div>
+    
+    {% if error_code == 404 %}
+    <p>The page you're looking for doesn't exist.</p>
+    {% elif error_code == 500 %}
+    <p>An internal server error occurred. Please try again later.</p>
+    {% else %}
+    <p>An unexpected error occurred while processing your request.</p>
+    {% endif %}
+    
+    <div class="mb-3">
+        <a href="/" class="btn">Return to Dashboard</a>
+        <button class="btn" onclick="window.history.back()">Go Back</button>
+    </div>
+    
+    <div class="card" style="margin-top: 2rem;">
+        <h3>Troubleshooting</h3>
+        <ul>
+            <li>Check if the database connection is working: <a href="/health">Health Check</a></li>
+            <li>Verify system status: <a href="/api/system/status">System Status API</a></li>
+            <li>Try refreshing the page</li>
+            <li>Check the server logs for more details</li>
+        </ul>
+        
+        <h4>CLI Commands for Diagnostics</h4>
+        <div style="background-color: #f8f9fa; padding: 1rem; border-radius: 4px; font-family: monospace;">
+            <div># Check system status</div>
+            <div>python -m procurement_lighthouse.main status</div>
+            <br>
+            <div># Run system diagnostics</div>
+            <div>python diagnose_system.py</div>
+            <br>
+            <div># Validate system setup</div>
+            <div>python validate_system.py</div>
+        </div>
+    </div>
+</div>
+{% endblock %}

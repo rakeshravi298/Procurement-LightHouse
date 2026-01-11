@@ -1,0 +1,26 @@
+# Procurement Lighthouse PoC Requirements
+# Optimized for AWS t2.micro Free Tier
+
+# Database
+psycopg2-binary==2.9.9
+
+# Web Framework
+Flask==3.0.0
+Werkzeug==3.0.1
+requests==2.31.0
+
+# Machine Learning (lightweight)
+scikit-learn>=1.3.0
+joblib>=1.3.0
+numpy>=1.25.0
+
+# Data handling
+pandas==2.0.3
+
+# Logging and utilities
+python-dotenv==1.0.0
+
+# Development and testing (optional)
+pytest==7.4.3
+pytest-asyncio==0.21.1
+hypothesis==6.88.1

@@ -1,0 +1,82 @@
+2026-01-10 21:54:24,841 - procurement_lighthouse.database.connection - ERROR - Database connection failed: connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+
+2026-01-10 21:54:25,001 - procurement_lighthouse.database.connection - ERROR - Database connection failed: connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+
+2026-01-10 22:03:12,211 - procurement_lighthouse.ml.model_manager - INFO - Loaded metadata for 2 models
+2026-01-10 22:03:12,217 - procurement_lighthouse.ml.model_manager - ERROR - Error loading model consumption_forecaster: Can't get attribute 'ConsumptionForecaster' on <module 'procurement_lighthouse.main' from 'C:\\Users\\rakes\\OneDrive\\Desktop\\Procurement Light House\\procurement_lighthouse\\main.py'>
+2026-01-10 22:03:12,218 - procurement_lighthouse.ml.service - WARNING - Model consumption_forecaster validation failed: ['Failed to load model']
+2026-01-10 22:03:12,219 - procurement_lighthouse.ml.model_manager - ERROR - Error loading model stockout_classifier: Can't get attribute 'StockoutClassifier' on <module 'procurement_lighthouse.main' from 'C:\\Users\\rakes\\OneDrive\\Desktop\\Procurement Light House\\procurement_lighthouse\\main.py'>
+2026-01-10 22:03:12,220 - procurement_lighthouse.ml.service - WARNING - Model stockout_classifier validation failed: ['Failed to load model']
+2026-01-10 22:04:59,020 - procurement_lighthouse.ml.model_manager - INFO - Loaded metadata for 2 models
+2026-01-10 22:05:01,073 - procurement_lighthouse.ml.model_manager - INFO - Model consumption_forecaster loaded successfully
+2026-01-10 22:05:01,075 - procurement_lighthouse.ml.service - INFO - Model consumption_forecaster validated successfully
+2026-01-10 22:05:01,078 - procurement_lighthouse.ml.model_manager - INFO - Model stockout_classifier loaded successfully
+2026-01-10 22:05:01,079 - procurement_lighthouse.ml.service - INFO - Model stockout_classifier validated successfully
+2026-01-10 22:05:29,435 - procurement_lighthouse.ml.model_manager - INFO - Loaded metadata for 2 models
+2026-01-10 22:05:31,635 - procurement_lighthouse.ml.model_manager - INFO - Model consumption_forecaster loaded successfully
+2026-01-10 22:05:31,636 - procurement_lighthouse.ml.service - INFO - Model consumption_forecaster validated successfully
+2026-01-10 22:05:31,639 - procurement_lighthouse.ml.model_manager - INFO - Model stockout_classifier loaded successfully
+2026-01-10 22:05:31,639 - procurement_lighthouse.ml.service - INFO - Model stockout_classifier validated successfully
+2026-01-10 22:05:52,275 - procurement_lighthouse.ml.model_manager - INFO - Loaded metadata for 2 models
+2026-01-10 22:05:52,615 - procurement_lighthouse.database.connection - ERROR - Database connection failed: connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+
+2026-01-10 22:05:52,769 - procurement_lighthouse.database.connection - ERROR - Database connection failed: connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+
+2026-01-10 22:05:52,769 - procurement_lighthouse.ml.inference - ERROR - Error getting consumption features for item 1: connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+
+2026-01-10 22:05:52,771 - procurement_lighthouse.ml.inference - WARNING - Could not get features for item 1
+2026-01-10 22:05:52,923 - procurement_lighthouse.database.connection - ERROR - Database connection failed: connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+
+2026-01-10 22:05:53,074 - procurement_lighthouse.database.connection - ERROR - Database connection failed: connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+
+2026-01-10 22:05:53,075 - procurement_lighthouse.ml.inference - ERROR - Error getting stockout features for item 1: connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+
+2026-01-10 22:05:53,075 - procurement_lighthouse.ml.inference - WARNING - Could not get stockout features for item 1
+2026-01-10 22:32:46,724 - __main__ - INFO - Starting web server...
+2026-01-10 22:32:46,729 - __main__ - WARNING - Full app not available (cannot import name 'app' from 'procurement_lighthouse.web.app' (C:\Users\rakes\OneDrive\Desktop\Procurement Light House\procurement_lighthouse\web\app.py)), using simple demo app
+2026-01-10 22:32:47,301 - __main__ - INFO - Web server starting on http://0.0.0.0:5000
+2026-01-10 22:32:47,302 - __main__ - INFO - Access the dashboard at: http://localhost:5000
+2026-01-10 22:32:47,366 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.110:5000
+2026-01-10 22:32:47,367 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-01-11 14:14:06,728 - __main__ - INFO - Setting up Procurement Lighthouse PoC...
+2026-01-11 14:14:06,732 - procurement_lighthouse.database.setup - INFO - Starting database setup...
+2026-01-11 14:14:07,322 - procurement_lighthouse.database.setup - ERROR - Failed to create database: connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+
+2026-01-11 14:14:07,323 - procurement_lighthouse.database.setup - ERROR - Database setup failed: connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+
+2026-01-11 14:14:07,324 - __main__ - ERROR - Setup failed: connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+
+2026-01-11 14:14:07,992 - __main__ - INFO - Checking system status...
+2026-01-11 14:14:08,138 - procurement_lighthouse.database.connection - ERROR - Database connection failed: connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+
+2026-01-11 14:14:08,265 - procurement_lighthouse.database.connection - ERROR - Database connection failed: connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+
+2026-01-11 14:14:08,265 - __main__ - ERROR - Status check failed: connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+
+2026-01-11 14:14:09,004 - __main__ - INFO - Starting data simulation service...
+2026-01-11 14:14:09,062 - procurement_lighthouse.simulator.service - INFO - Starting data simulation service...
+2026-01-11 14:14:09,062 - procurement_lighthouse.simulator.inventory - INFO - Starting inventory simulator...
+2026-01-11 14:14:09,063 - procurement_lighthouse.simulator.inventory - INFO - Inventory simulation started
+2026-01-11 14:14:09,066 - procurement_lighthouse.simulator.inventory - INFO - Inventory simulator started (interval: 60s)
+2026-01-11 14:14:09,066 - procurement_lighthouse.simulator.purchase_orders - INFO - Starting PO simulator...
+2026-01-11 14:14:09,068 - procurement_lighthouse.simulator.purchase_orders - INFO - PO simulation started
+2026-01-11 14:14:09,068 - procurement_lighthouse.simulator.purchase_orders - INFO - PO simulator started (interval: 180s)
+2026-01-11 14:14:09,069 - procurement_lighthouse.simulator.service - INFO - Data simulation service started
+2026-01-11 14:14:09,224 - procurement_lighthouse.database.connection - ERROR - Database connection failed: connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+
+2026-01-11 14:14:09,226 - procurement_lighthouse.database.connection - ERROR - Database connection failed: connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+
+2026-01-11 14:14:09,364 - procurement_lighthouse.database.connection - ERROR - Database connection failed: connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+
+2026-01-11 14:14:09,364 - procurement_lighthouse.simulator.inventory - ERROR - Error loading inventory items: connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+
+2026-01-11 14:14:09,365 - procurement_lighthouse.simulator.inventory - WARNING - No inventory items available for simulation
+2026-01-11 14:14:09,365 - procurement_lighthouse.simulator.inventory - INFO - Inventory simulation: 0 events generated, 1 errors
+2026-01-11 14:14:09,366 - procurement_lighthouse.database.connection - ERROR - Database connection failed: connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+
+2026-01-11 14:14:09,366 - procurement_lighthouse.simulator.purchase_orders - ERROR - Error loading purchase orders: connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+
+2026-01-11 14:14:09,366 - procurement_lighthouse.simulator.purchase_orders - INFO - PO simulation: 0 events generated, 1 errors

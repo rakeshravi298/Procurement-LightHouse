@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Procurement Lighthouse PoC{% endblock %}
+
+{% block content %}
+<div class="status-grid">
+    <div class="status-item">
+        <div class="status-value">{{ system_status.inventory_count or 0 }}</div>
+        <div class="status-label">Inventory Items</div>
+    </div>
+    <div class="status-item">
+        <div class="status-value">{{ system_status.active_alerts or 0 }}</div>
+        <div class="status-label">Active Alerts</div>
+    </div>
+    <div class="status-item">
+        <div class="status-value">{{ system_status.recent_events or 0 }}</div>
+        <div class="status-label">Recent Events (1h)</div>
+    </div>
+    <div class="status-item">
+        <div class="status-value">
+            {% if ml_status.models_available %}✓{% else %}✗{% endif %}
+        </div>
+        <div class="status-label">ML Models</div>
+    </div>
+</div>
+
+<div class="card">
+    <h2>System Status</h2>
+    <div class="mb-3">
+        <strong>Database:</strong> 
+        <span class="{% if system_status.database == 'connected' %}text-success{% else %}text-danger{% endif %}">
+            {{ system_status.database|title }}
+        </span>
+    </div>
+    <div class="mb-3">
+        <strong>ML Service:</strong> 
+        <span class="{% if ml_status.service_running %}text-success{% else %}text-warning{% endif %}">
+            {% if ml_status.service_running %}Running{% else %}Stopped{% endif %}
+        </span>
+    </div>
+    <div class="mb-3">
+        <strong>Last Updated:</strong> {{ system_status.timestamp }}
+    </div>
+    
+    <div class="mb-3">
+        <button class="btn btn-success" onclick="refreshData()">Refresh Data</button>
+        <button class="btn btn-warning" onclick="runMLBatch()">Run ML Batch</button>
+    </div>
+</div>
+
+{% if recent_alerts %}
+<div class="card">
+    <h2>Recent Active Alerts</h2>
+    {% for alert in recent_alerts %}
+    <div class="alert alert-{{ alert.severity }}">
+        <strong>{{ alert.alert_type.replace('_', ' ').title() }}</strong>
+        <p>{{ alert.message }}</p>
+        <small class="text-muted">Created: {{ alert.created_at }}</small>
+    </div>
+    {% endfor %}
+    
+    {% if alert_summary.total_active > 5 %}
+    <p class="text-muted">
+        Showing 5 of {{ alert_summary.total_active }} active alerts.
+        <a href="/api/alerts">View all alerts</a>
+    </p>
+    {% endif %}
+</div>
+{% else %}
+<div class="card">
+    <h2>Alerts</h2>
+    <p class="text-center text-muted">✅ No active alerts</p>
+</div>
+{% endif %}
+
+<div class="card">
+    <h2>Quick Actions</h2>
+    <div class="mb-3">
+        <h3>System Control</h3>
+        <p class="text-muted">Note: These actions require CLI access for full functionality</p>
+        <button class="btn" onclick="startSimulation()">Request Start Simulation</button>
+        <button class="btn" onclick="startEvents()">Request Start Events</button>
+    </div>
+    
+    <div class="mb-3">
+        <h3>Visualization</h3>
+        <a href="http://localhost:3000" class="btn" target="_blank">Open Grafana Dashboards</a>
+        <button class="btn" onclick="initializeGrafana()">Initialize Grafana</button>
+    </div>
+    
+    <div class="mb-3">
+        <h3>Data Access</h3>
+        <a href="/api/inventory" class="btn">View Inventory Data</a>
+        <a href="/api/purchase-orders" class="btn">View Purchase Orders</a>
+        <a href="/api/system/status" class="btn">System Status API</a>
+    </div>
+    
+    <div class="mb-3">
+        <h3>ML Operations</h3>
+        <a href="/api/ml/status" class="btn">ML Service Status</a>
+        <button class="btn" onclick="runMLBatch()">Run Batch Inference</button>
+    </div>
+</div>
+
+<div class="card">
+    <h2>CLI Commands</h2>
+    <p>For full system control, use these CLI commands:</p>
+    <div style="background-color: #f8f9fa; padding: 1rem; border-radius: 4px; font-family: monospace;">
+        <div># Setup and status</div>
+        <div>python -m procurement_lighthouse.main setup</div>
+        <div>python -m procurement_lighthouse.main status</div>
+        <br>
+        <div># Start services</div>
+        <div>python -m procurement_lighthouse.main simulate</div>
+        <div>python -m procurement_lighthouse.main events</div>
+        <br>
+        <div># View alerts and ML</div>
+        <div>python -m procurement_lighthouse.main alerts</div>
+        <div>python -m procurement_lighthouse.main ml status</div>
+        <div>python -m procurement_lighthouse.main ml batch</div>
+        <br>
+        <div># Start web server</div>
+        <div>python -m procurement_lighthouse.main web</div>
+        <br>
+        <div># Initialize Grafana dashboards</div>
+        <div>python -m procurement_lighthouse.main grafana init</div>
+        <div>python -m procurement_lighthouse.main grafana status</div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+function refreshData() {
+    window.location.reload();
+}
+
+function runMLBatch() {
+    fetch('/api/ml/batch', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.completed) {
+            alert(`ML Batch completed!\nItems processed: ${data.items_processed}\nProcessing time: ${data.processing_time_seconds}s`);
+            refreshData();
+        } else {
+            alert(`ML Batch failed: ${data.error || 'Unknown error'}`);
+        }
+    })
+    .catch(error => {
+        alert(`Error running ML batch: ${error}`);
+    });
+}
+
+function startSimulation() {
+    fetch('/api/system/start-simulation', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+    })
+    .catch(error => {
+        alert(`Error: ${error}`);
+    });
+}
+
+function startEvents() {
+    fetch('/api/system/start-events', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+    })
+    .catch(error => {
+        alert(`Error: ${error}`);
+    });
+}
+
+function initializeGrafana() {
+    fetch('/api/grafana/init', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert(`Grafana initialized successfully!\nDashboards created: ${data.dashboard_count}\nAccess at: http://localhost:3000`);
+        } else {
+            alert(`Grafana initialization failed: ${data.error || 'Unknown error'}`);
+        }
+    })
+    .catch(error => {
+        alert(`Error initializing Grafana: ${error}`);
+    });
+}
+
+// Auto-refresh every 30 seconds
+setInterval(refreshData, 30000);
+</script>
+{% endblock %}
