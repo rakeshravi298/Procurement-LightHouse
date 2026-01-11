@@ -13,34 +13,23 @@ sudo yum update -y
 # Install Python 3.9 and pip
 sudo yum install -y python3 python3-pip git
 
+# Install PostgreSQL 13 repo
+sudo yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+
+# Disable default PostgreSQL module
+sudo yum -qy module disable postgresql
+
 # Install PostgreSQL 13
 sudo yum install -y postgresql13-server postgresql13-devel
 
-# Initialize PostgreSQL
+# Initialize DB
 sudo /usr/pgsql-13/bin/postgresql-13-setup initdb
 
-# Configure PostgreSQL for t2.micro
-sudo tee /var/lib/pgsql/13/data/postgresql.conf.custom << EOF
-# t2.micro optimizations (1GB RAM)
-shared_buffers = 128MB
-effective_cache_size = 512MB
-work_mem = 4MB
-maintenance_work_mem = 64MB
-max_connections = 20
-wal_buffers = 16MB
-checkpoint_completion_target = 0.9
-random_page_cost = 1.1
-effective_io_concurrency = 200
-EOF
-
-# Append custom config to main config
-sudo bash -c 'cat /var/lib/pgsql/13/data/postgresql.conf.custom >> /var/lib/pgsql/13/data/postgresql.conf'
-
-# Configure PostgreSQL authentication
+# Configure PostgreSQL
 sudo sed -i "s/#listen_addresses = 'localhost'/listen_addresses = 'localhost'/" /var/lib/pgsql/13/data/postgresql.conf
-sudo sed -i "s/ident/md5/g" /var/lib/pgsql/13/data/pg_hba.conf
+sudo sed -i "s/peer/md5/g" /var/lib/pgsql/13/data/pg_hba.conf
 
-# Start and enable PostgreSQL
+# Start PostgreSQL
 sudo systemctl start postgresql-13
 sudo systemctl enable postgresql-13
 
