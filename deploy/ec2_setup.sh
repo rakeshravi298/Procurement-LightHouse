@@ -17,7 +17,7 @@ sudo yum install -y python3 python3-pip git
 sudo dnf install -y postgresql15 postgresql15-server postgresql15-devel
 
 # Initialize database
-sudo /usr/bin/postgresql-15-setup initdb
+sudo postgresql-setup --initdb
 
 # Configure PostgreSQL
 sudo sed -i "s/#listen_addresses = 'localhost'/listen_addresses = 'localhost'/" /var/lib/pgsql/data/postgresql.conf
